@@ -12,6 +12,7 @@ using Domain.Abstractions.Services;
 using Domain.Services;
 using External.Backend.Options;
 using External.CitizenId;
+using External.FleetYards;
 using External.UEX;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,8 +25,10 @@ using Services;
 using Services.Abstractions;
 using Services.External;
 using Services.Hosted;
+using Services.FleetYards;
 using Services.Hydration;
 using Services.PriceProviders;
+using FleetYardsAccountContext = Services.External.FleetYardsAccountContext;
 using UexAccountContext = Services.External.UexAccountContext;
 
 public static class DependencyInjection
@@ -91,6 +94,8 @@ public static class DependencyInjection
                 )
             );
 
+        services.AddFleetYardsAccountAuthentication(configuration);
+
         services
             .AddConfiguration<ArkanisRestBackendOptions>(configuration)
             .AddConfiguration<ArkanisGraphqlBackendOptions>(configuration)
@@ -136,6 +141,25 @@ public static class DependencyInjection
             .AddSingleton<UexAccountContext>()
             .Alias<ISelfInitializable, UexAccountContext>()
             .Alias<IExternalAccountContext, UexAccountContext>();
+
+    public static IServiceCollection AddFleetYardsAccountAuthentication(this IServiceCollection services, IConfiguration configuration)
+        => services
+            .AddFleetYardsAuthenticatorServices(configuration)
+            .AddSingleton<IOptionsChangeTokenSource<FleetYardsApiOptions>, UserPreferencesBasedOptionsChangeTokenSource<FleetYardsApiOptions>>()
+            .AddFleetYardsApiClients(provider => new ConfigureOptions<FleetYardsApiOptions>(opts =>
+                {
+                    var userPreferences = provider.GetRequiredService<IUserPreferencesProvider>();
+                    var credentials = userPreferences.CurrentPreferences.GetCredentialsOrDefaultFor(ExternalService.FleetYards);
+                    if (credentials is AccountOAuth2Credentials oauth2Credentials)
+                    {
+                        opts.AccessToken = oauth2Credentials.AccessToken;
+                    }
+                }
+            ))
+            .AddSingleton<FleetYardsAccountContext>()
+            .Alias<ISelfInitializable, FleetYardsAccountContext>()
+            .Alias<IExternalAccountContext, FleetYardsAccountContext>()
+            .AddSingleton<IFleetYardsHangarProvider, FleetYardsHangarProvider>();
 
     public static IServiceCollection AddInfrastructureConfiguration(this IServiceCollection services, IConfiguration configuration)
         => services

@@ -1,0 +1,59 @@
+@using Arkanis.Overlay.Infrastructure.Services.External
+@inject IDialogService DialogService
+@inject FleetYardsAccountContext FleetYardsAccountContext
+
+
+<MudExpansionPanel Class="external-service-config" Disabled="@(!FleetYardsAccountContext.IsAuthenticated)">
+    <TitleContent>
+        <MudStack AlignItems="@AlignItems.Center"
+                  Justify="@Justify.Center"
+                  Row>
+            <div style="height: 32px; margin-top: -4px;">
+                <FleetYardsLogo
+                    Style="max-height: 38px;"
+                    Class="my-n1"
+                    ContentId="@ContentId"/>
+            </div>
+        </MudStack>
+        <MudStack AlignItems="@AlignItems.Center" Row>
+            <ExternalAccountStatusBadge
+                Model="@FleetYardsAccountContext"/>
+            <ExternalAccountDetails
+                Model="@FleetYardsAccountContext"/>
+            <MudSpacer/>
+            <div class="my-n2">
+                @if (FleetYardsAccountContext.IsAuthenticated)
+                {
+                    <MudButton Variant="@Variant.Outlined"
+                               Color="@Color.Default"
+                               OnClick="@(() => FleetYardsAccountSetupDialog.ShowAsync(DialogService))">
+                        Connect different account
+                    </MudButton>
+                    <MudIconButton
+                        Variant="@Variant.Outlined"
+                        Color="@Color.Error"
+                        Icon="@Icons.Material.Filled.LinkOff"
+                        OnClick="@(() => FleetYardsAccountSetupDialog.UnlinkAsync(DialogService, FleetYardsAccountContext))"/>
+                }
+                else
+                {
+                    <MudButton Variant="@Variant.Outlined"
+                               Color="@Color.Info"
+                               OnClick="@(() => FleetYardsAccountSetupDialog.ShowAsync(DialogService))">
+                        Connect account
+                    </MudButton>
+                }
+            </div>
+        </MudStack>
+    </TitleContent>
+    <ChildContent>
+    </ChildContent>
+</MudExpansionPanel>
+
+@code
+{
+
+    [Parameter]
+    public string? ContentId { get; set; }
+
+}
