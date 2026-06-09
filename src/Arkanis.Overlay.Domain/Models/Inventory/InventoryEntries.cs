@@ -239,6 +239,8 @@ public sealed class HangarInventoryEntry : InventoryEntryBase, ILocationInventor
 
     public UexHangarEntryId? UexHangarEntryId { get; set; }
 
+    public string? FleetYardsVehicleId { get; set; }
+
     public string? NameTag { get; set; }
     public bool IsPledged { get; set; }
 

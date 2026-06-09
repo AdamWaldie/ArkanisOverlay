@@ -161,7 +161,9 @@ public static class DependencyInjection
             .Alias<ISelfInitializable, FleetYardsAccountContext>()
             .Alias<IExternalAccountContext, FleetYardsAccountContext>()
             .AddSingleton<IFleetYardsHangarProvider, FleetYardsHangarProvider>()
-            .AddSingleton<IFleetYardsPublicHangarProvider, FleetYardsPublicHangarProvider>();
+            .AddSingleton<IFleetYardsPublicHangarProvider, FleetYardsPublicHangarProvider>()
+            .AddSingleton<FleetYardsHangarSyncService>()
+            .Alias<ISelfInitializable, FleetYardsHangarSyncService>();
 
     public static IServiceCollection AddInfrastructureConfiguration(this IServiceCollection services, IConfiguration configuration)
         => services

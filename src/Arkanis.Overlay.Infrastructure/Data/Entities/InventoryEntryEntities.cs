@@ -130,6 +130,9 @@ internal sealed class HangarInventoryEntryEntity() : InventoryEntryEntityBase(In
     [Column(UexReferenceIdColumnName)]
     public UexApiGameEntityId? UexHangarEntryId { get; set; }
 
+    [Column(nameof(FleetYardsVehicleId))]
+    public string? FleetYardsVehicleId { get; set; }
+
     [Column(nameof(LocationId))]
     public required UexApiGameEntityId LocationId { get; set; }
 
