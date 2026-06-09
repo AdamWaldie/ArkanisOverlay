@@ -3,6 +3,7 @@
 @inject IDialogService DialogService
 @inject FleetYardsLinkHelper FleetYardsLinkHelper
 @inject FleetYardsAccountContext FleetYardsAccountContext
+@inject CitizenIdAccountContext CitizenIdAccountContext
 
 
 <MudExpansionPanel Class="external-service-config" Disabled="@(!FleetYardsAccountContext.IsAuthenticated)">
@@ -38,6 +39,16 @@
                         Color="@Color.Error"
                         Icon="@Icons.Material.Filled.LinkOff"
                         OnClick="@UnlinkAsync"/>
+                }
+                else if (CitizenIdAccountContext.IsAuthenticated)
+                {
+                    <MudButton Variant="@Variant.Outlined"
+                               Color="@Color.Info"
+                               StartIcon="@Icons.Material.Filled.OpenInNew"
+                               Href="@FleetYardsLinkHelper.GetLinkAccountUrl()"
+                               Target="_blank">
+                        Connect via Citizen iD
+                    </MudButton>
                 }
                 else
                 {
