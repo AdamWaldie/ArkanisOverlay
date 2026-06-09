@@ -262,6 +262,10 @@ namespace Arkanis.Overlay.Infrastructure.Data.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("UexReferenceId");
 
+                    b.Property<string>("FleetYardsVehicleId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("FleetYardsVehicleId");
+
                     b.HasIndex("LocationId");
 
                     b.HasDiscriminator().HasValue("Hangar");

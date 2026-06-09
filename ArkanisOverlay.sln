@@ -66,6 +66,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{D4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkanis.Overlay.External.CitizenId", "src\Arkanis.Overlay.External.CitizenId\Arkanis.Overlay.External.CitizenId.csproj", "{628A5975-DCE5-447B-B41A-F361C79BA887}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkanis.Overlay.External.FleetYards", "src\Arkanis.Overlay.External.FleetYards\Arkanis.Overlay.External.FleetYards.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkanis.Overlay.External.Common", "src\Arkanis.Overlay.External.Common\Arkanis.Overlay.External.Common.csproj", "{760043DE-623A-4B58-9B85-279BF6EA0F85}"
 EndProject
 Global
@@ -138,6 +140,10 @@ Global
 		{760043DE-623A-4B58-9B85-279BF6EA0F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{760043DE-623A-4B58-9B85-279BF6EA0F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{760043DE-623A-4B58-9B85-279BF6EA0F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CED78CB3-F5FA-49D6-ACBC-565E986BC665} = {616E9EA0-1A7F-4608-BEEA-9C3F26FAF516}
@@ -157,6 +163,7 @@ Global
 		{F21FD73B-47BB-467E-8EED-5AEAADEA0FDA} = {D4DFACE5-E4CC-4D26-8DA5-D6608EE45885}
 		{16AB4036-03A1-466D-83F0-56108C3E744F} = {D4DFACE5-E4CC-4D26-8DA5-D6608EE45885}
 		{628A5975-DCE5-447B-B41A-F361C79BA887} = {D4DFACE5-E4CC-4D26-8DA5-D6608EE45885}
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890} = {D4DFACE5-E4CC-4D26-8DA5-D6608EE45885}
 		{760043DE-623A-4B58-9B85-279BF6EA0F85} = {D4DFACE5-E4CC-4D26-8DA5-D6608EE45885}
 	EndGlobalSection
 EndGlobal
