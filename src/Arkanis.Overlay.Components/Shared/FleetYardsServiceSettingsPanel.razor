@@ -1,5 +1,7 @@
+@using Arkanis.Overlay.External.FleetYards
 @using Arkanis.Overlay.Infrastructure.Services.External
 @inject IDialogService DialogService
+@inject FleetYardsLinkHelper FleetYardsLinkHelper
 @inject FleetYardsAccountContext FleetYardsAccountContext
 
 
@@ -26,20 +28,24 @@
                 {
                     <MudButton Variant="@Variant.Outlined"
                                Color="@Color.Default"
-                               OnClick="@(() => FleetYardsAccountSetupDialog.ShowAsync(DialogService))">
+                               StartIcon="@Icons.Material.Filled.OpenInNew"
+                               Href="@FleetYardsLinkHelper.GetLinkAccountUrl()"
+                               Target="_blank">
                         Connect different account
                     </MudButton>
                     <MudIconButton
                         Variant="@Variant.Outlined"
                         Color="@Color.Error"
                         Icon="@Icons.Material.Filled.LinkOff"
-                        OnClick="@(() => FleetYardsAccountSetupDialog.UnlinkAsync(DialogService, FleetYardsAccountContext))"/>
+                        OnClick="@UnlinkAsync"/>
                 }
                 else
                 {
                     <MudButton Variant="@Variant.Outlined"
                                Color="@Color.Info"
-                               OnClick="@(() => FleetYardsAccountSetupDialog.ShowAsync(DialogService))">
+                               StartIcon="@Icons.Material.Filled.OpenInNew"
+                               Href="@FleetYardsLinkHelper.GetLinkAccountUrl()"
+                               Target="_blank">
                         Connect account
                     </MudButton>
                 }
@@ -55,5 +61,28 @@
 
     [Parameter]
     public string? ContentId { get; set; }
+
+    public async Task<DialogResult> UnlinkAsync()
+    {
+        if (!FleetYardsAccountContext.IsAuthenticated)
+        {
+            return DialogResult.Ok(true);
+        }
+
+        var options = new MessageBoxOptions
+        {
+            Title = $"Unlink {FleetYardsAccountContext.Identity.Name} ({FleetYardsAccountContext.AuthenticatorInfo.DisplayName} account)",
+            Message = "This action cannot be undone. Are you sure?",
+            YesText = "Unlink",
+            CancelText = "Cancel",
+        };
+        if (await DialogService.ShowMessageBox(options) is not true)
+        {
+            return DialogResult.Cancel();
+        }
+
+        await FleetYardsAccountContext.UnlinkAsync(CancellationToken.None);
+        return DialogResult.Ok(true);
+    }
 
 }

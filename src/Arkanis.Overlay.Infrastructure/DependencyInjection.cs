@@ -144,6 +144,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddFleetYardsAccountAuthentication(this IServiceCollection services, IConfiguration configuration)
         => services
+            .AddFleetYardsLinkHelper()
             .AddFleetYardsAuthenticatorServices(configuration)
             .AddSingleton<IOptionsChangeTokenSource<FleetYardsApiOptions>, UserPreferencesBasedOptionsChangeTokenSource<FleetYardsApiOptions>>()
             .AddFleetYardsApiClients(provider => new ConfigureOptions<FleetYardsApiOptions>(opts =>
@@ -159,7 +160,8 @@ public static class DependencyInjection
             .AddSingleton<FleetYardsAccountContext>()
             .Alias<ISelfInitializable, FleetYardsAccountContext>()
             .Alias<IExternalAccountContext, FleetYardsAccountContext>()
-            .AddSingleton<IFleetYardsHangarProvider, FleetYardsHangarProvider>();
+            .AddSingleton<IFleetYardsHangarProvider, FleetYardsHangarProvider>()
+            .AddSingleton<IFleetYardsPublicHangarProvider, FleetYardsPublicHangarProvider>();
 
     public static IServiceCollection AddInfrastructureConfiguration(this IServiceCollection services, IConfiguration configuration)
         => services

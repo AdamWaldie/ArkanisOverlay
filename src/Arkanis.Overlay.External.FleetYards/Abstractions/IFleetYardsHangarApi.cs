@@ -11,6 +11,16 @@ public interface IFleetYardsHangarApi : IFleetYardsApiClient
     Task<FleetYardsHangarStatsDto?> GetHangarStatsAsync(CancellationToken cancellationToken = default);
 }
 
+public interface IFleetYardsPublicHangarApi
+{
+    Task<List<FleetYardsHangarVehicleDto>> GetPublicHangarAsync(
+        string username,
+        int page = 1,
+        int perPage = 50,
+        CancellationToken cancellationToken = default
+    );
+}
+
 public interface IFleetYardsFleetsApi : IFleetYardsApiClient
 {
     Task<List<FleetYardsMyFleetDto>> GetMyFleetsAsync(CancellationToken cancellationToken = default);

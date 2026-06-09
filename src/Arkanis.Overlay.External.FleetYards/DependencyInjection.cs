@@ -17,7 +17,11 @@ public static class DependencyInjection
         => services
             .AddSingleton(createOptions ?? (_ => new ConfigureOptions<FleetYardsApiOptions>(_ => { })))
             .AddSingleton<IFleetYardsHangarApi, FleetYardsHangarApi>()
-            .AddSingleton<IFleetYardsFleetsApi, FleetYardsFleetsApi>();
+            .AddSingleton<IFleetYardsFleetsApi, FleetYardsFleetsApi>()
+            .AddSingleton<IFleetYardsPublicHangarApi, FleetYardsPublicHangarApi>();
+
+    public static IServiceCollection AddFleetYardsLinkHelper(this IServiceCollection services)
+        => services.AddSingleton<FleetYardsLinkHelper>();
 
     public static IServiceCollection AddFleetYardsAuthenticatorServices(
         this IServiceCollection services,
